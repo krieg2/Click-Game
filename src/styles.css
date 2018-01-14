@@ -1,0 +1,29 @@
+nav {
+  background: #5133a4;
+  min-height: 60px;
+  line-height: 60px;
+  width: 100%;
+  color: #fff;
+  font-size: 24px;
+  box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22);
+}
+
+a, a:hover {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 900;
+}
+
+.navbar li {
+  width: 33.3%;
+}
+
+header {
+  min-height: 400px;
+  text-align: center;
+  padding: 20px;
+  padding-top: 180px;
+  padding-bottom: 140px;
+  color: #fff;
+  background-image: url('footer_lodyas.png');
+}
