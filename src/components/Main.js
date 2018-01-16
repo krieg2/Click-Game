@@ -4,7 +4,7 @@ import '../styles.css';
 
 class Main extends Component {
 
-	state = {
+    state = {
       clickyPhotos: ["https://media.giphy.com/media/l2QEgAHt1gPBLIfp6/200w",
                      "https://media.giphy.com/media/3oFzmmRkQiiE7rDrsQ/200w",
                      "https://media.giphy.com/media/wJNGA01o1Zxp6/200w",
@@ -16,10 +16,27 @@ class Main extends Component {
                      "https://media.giphy.com/media/l0IyaInBwoLwPbWLu/200w",
                      "https://media.giphy.com/media/l396O8kn1qbPcb4ha/200w",
                      "https://media.giphy.com/media/l0O9zareSGZoeC7gk/200w",
-                     "https://media.giphy.com/media/xUOxeZc41DVT2l9laU/200w"]
-	};
+                     "https://media.giphy.com/media/xUOxeZc41DVT2l9laU/200w"],
+      alreadyClicked: []
+    };
 
     handleImgClick = (event) => {
+
+      event.preventDefault();
+
+      const key = event.target.attributes.getNamedItem("name").value;
+
+      if(this.state.alreadyClicked.includes(key)){
+
+        this.props.handleReset();
+        this.setState({alreadyClicked: []});
+      } else{
+
+        this.props.handleScore();
+        let newArray = this.state.alreadyClicked;
+        newArray.push(key);
+        this.setState({alreadyClicked: newArray});
+      }
 
       let array = this.state.clickyPhotos;
 
@@ -35,25 +52,26 @@ class Main extends Component {
       this.setState(newState);
     };
 
-	renderImgDivs = () => {
+    renderImgDivs = () => {
 
-	  let results = [];
+      let results = [];
 
-	  for(let i=0; i < this.state.clickyPhotos.length; i++){
+      for(let i=0; i < this.state.clickyPhotos.length; i++){
 
-        results.push(<Image data-id={i} handleImgClick={this.handleImgClick} url={this.state.clickyPhotos[i]}/>);
-	  }
+        let url = this.state.clickyPhotos[i];
+        results.push(<Image key={url} handleImgClick={this.handleImgClick} url={url} />);
+      }
 
-	  return results;
-	};
+      return results;
+    };
 
-	render() {
+    render() {
 
-	  return(
-	      <main className="container">
-	  	    {this.renderImgDivs()}
-	  	  </main>);
-	}
+      return(
+            <main className="container">
+              {this.renderImgDivs()}
+            </main>);
+    }
 }
 
 export default Main;
