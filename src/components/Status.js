@@ -17,7 +17,7 @@ class Status extends Component {
 
   componentDidMount () {
  
-    const elm = this.refs.button;
+    const elm = this.refs.statusDiv;
     elm.addEventListener("animationend", this.handleAnimation);
   }
 
@@ -37,7 +37,7 @@ class Status extends Component {
 
   render() {
 
-    return ( <li ref='button' className={`nav-item text-center my-auto ${this.state.status}`} >{this.state.message}</li> );
+    return ( <div ref='statusDiv' className={`nav-item text-center my-auto col col-4 ${this.state.status}`} >{this.state.message}</div> );
   }
 }
 

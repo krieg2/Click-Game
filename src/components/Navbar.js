@@ -5,14 +5,14 @@ import '../styles.css';
 const Navbar = (props) => {
 
   return(
-    <nav className="navbar fixed-top navbar-expand navbar-dark">
-      <ul className="navbar-nav">
-        <li className="brand nav-item text-center my-auto">
-        <a href="/">Clicky Game</a>
-        </li>
+    <nav className="navbar fixed-top navbar-expand navbar-dark container-fluid">
+      <div className="row w-100">
+        <div className="brand nav-item text-center my-auto col col-4">
+          <a href="/">Clicky Game</a>
+        </div>
         <Status status={props.status}/>
-        <li className="nav-item text-center my-auto">Score: {props.score} | Top Score: {props.topScore}</li>
-      </ul>
+        <div className="nav-item text-center my-auto col col-4">Score: {props.score} | Top Score: {props.topScore}</div>
+      </div>
     </nav>
   );
 };

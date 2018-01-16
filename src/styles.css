@@ -1,4 +1,4 @@
-nav {
+.navbar {
   background: #66ffff;
   min-height: 60px;
   line-height: 60px;
@@ -13,11 +13,10 @@ a, a:hover {
   font-weight: 900;
 }
 
-.navbar li {
-  /*width: 33.3%;*/
-  margin-right: 100px;
-  margin-left: 100px;
-  font-size: 24px;
+.navbar .col {
+  font-size: calc(6px + 1vw);
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .brand{
