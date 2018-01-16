@@ -16,6 +16,7 @@ class Status extends Component {
   };
 
   componentDidMount () {
+ 
     const elm = this.refs.button;
     elm.addEventListener("animationend", this.handleAnimation);
   }
