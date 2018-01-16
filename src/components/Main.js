@@ -59,7 +59,11 @@ class Main extends Component {
       for(let i=0; i < this.state.clickyPhotos.length; i++){
 
         let url = this.state.clickyPhotos[i];
-        results.push(<Image key={url} handleImgClick={this.handleImgClick} url={url} />);
+        results.push(
+          <div className="col col-6 col-lg-3" key={url}>
+          <Image handleImgClick={this.handleImgClick} url={url} />
+          </div>
+        );
       }
 
       return results;
@@ -69,7 +73,9 @@ class Main extends Component {
 
       return(
             <main className="container">
-              {this.renderImgDivs()}
+              <div className="row">
+                {this.renderImgDivs()}
+              </div>
             </main>);
     }
 }
