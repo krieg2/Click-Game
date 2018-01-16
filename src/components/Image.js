@@ -21,7 +21,7 @@ class Image extends Component {
   
     return(   
         <video className="img-thumbnail" onClick={this.props.handleImgClick}
-               autoPlay="true" loop="true" name={this.props.url}>
+               autoPlay="true" loop="true" playsinline="true" name={this.props.url}>
           <source src={this.props.url+'.mp4'} type="video/mp4" />
           <img alt="" className="" src={this.props.url+'.webp'} />
         </video>);

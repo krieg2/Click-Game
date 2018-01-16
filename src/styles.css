@@ -14,7 +14,7 @@ a, a:hover {
 }
 
 .navbar .col {
-  font-size: calc(6px + 1vw);
+  font-size: calc(2vw);
   white-space: nowrap;
   overflow: hidden;
 }
