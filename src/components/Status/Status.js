@@ -30,9 +30,9 @@ class Status extends Component {
       messageText = "You guessed incorrectly!";
     }
 
-	this.setState( (prevState, props) => {
-	  return {status: props.status, message: messageText};
-	});  	
+    this.setState( (prevState, props) => {
+	    return {status: props.status, message: messageText};
+	  });  	
   }
 
   render() {

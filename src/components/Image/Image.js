@@ -15,8 +15,14 @@ class Image extends Component {
   componentDidUpdate(nextProps) {
 
      const node = ReactDOM.findDOMNode(this);
-     node.load();
-     node.play();
+     if(node.readyState > 1){
+       try{
+         node.load();
+         node.play();
+       } catch(error) {
+         console.log(error);
+       }
+     }
    }
 
   // Renders a video tag with a Bootstrap class and

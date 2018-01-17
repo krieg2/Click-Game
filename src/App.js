@@ -18,20 +18,25 @@ class App extends Component {
   // Correct one clicked. Increment current score.
   handleScore = () => {
   
-    let score = this.state.score + 1;
-    this.setState({
-      score: score,
-      status: "correct"
+    this.setState( (prevState) => {
+      return {
+        score: prevState.score + 1,
+        status: "correct"
+      };
     });
   };
 
   // Incorrect one clicked (more than once).
   // Preserve the top score but reset current score.
-  handleReset = () => {
+  handleReset = (won) => {
 
+    let status = "incorrect";
+    if(won){
+      status = "";
+    }
     let newState = {
       score: 0,
-      status: "incorrect"
+      status: status
     };
     if(this.state.score > this.state.topScore){
       newState.topScore = this.state.score;
@@ -47,7 +52,8 @@ class App extends Component {
       <div>
         <Navbar score={this.state.score} topScore={this.state.topScore} status={this.state.status} />
         <Header />
-        <Main handleScore={this.handleScore} handleReset={this.handleReset} />
+        <Main handleScore={this.handleScore} handleReset={this.handleReset}
+              score={this.state.score} status={this.state.status} />
         <Footer />
       </div>
     );

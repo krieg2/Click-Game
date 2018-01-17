@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Image from "../Image";
+import API from "../../utils/API";
 import "./Main.css";
 
 class Main extends Component {
@@ -32,11 +33,40 @@ class Main extends Component {
       });
     };
 
+    // Extract the Giphy API call data and format the array.
+    processURLs = (array) => {
+
+      let newArray = [];
+      for(let i=0; i < 12; i++){
+        newArray.push("https://media.giphy.com/media/"+array[i].id+"/200w");
+      }
+
+      return newArray;
+    }
+
     // Adds the animationend event listener, the handleAnimation function.
-    componentDidMount () {
+    componentDidMount() {
  
       const element = this.refs.mainDiv;
       element.addEventListener("animationend", this.handleAnimation);
+    }
+
+    componentWillReceiveProps(nextProps){
+      // There are only 12 images.
+      // Reset the game and add new images.
+      if(nextProps.score === 12 &&
+         nextProps.status === "correct"){
+        // You won. Game over.
+        this.props.handleReset(true);
+        // Query the Giphy API.
+        API.getTrending()
+        .then(res => {
+          let newData = this.processURLs(res.data.data);
+          this.setState({ clickyPhotos: newData,
+                          alreadyClicked: [] });
+        })
+        .catch(err => console.log(err));
+      }
     }
 
     // When an image/video is clicked update the state.
@@ -48,35 +78,39 @@ class Main extends Component {
       const key = event.target.attributes.getNamedItem("name").value;
 
       // If already clicked, then game must be reset.
-      if(this.state.alreadyClicked.includes(key)){
+      const clickedAlready = this.state.alreadyClicked.includes(key);
+      if(clickedAlready){
 
         // Reset handled by App component.
-        // Then add the shake class to the Main component.
-        this.props.handleReset();
+        this.props.handleReset(false);
+        // Then add the shake class to the Main component.  
         this.setState({alreadyClicked: [], status: "shake"});
+
       } else{
 
-        // Score udate handled by App component.
-        // Then add URL to the alreadyClicked array.
+        // Score udate handled by App component.     
         this.props.handleScore();
+
+        //  Add the URL to the alreadyClicked array.
         let newArray = this.state.alreadyClicked;
         newArray.push(key);
         this.setState({alreadyClicked: newArray});
       }
 
-      // Shuffle the array of URLs then update the state.
-      let array = this.state.clickyPhotos;
+      if(this.props.score < 11 || clickedAlready){
+        // Shuffle the array of URLs then update the state.
+        let array = this.state.clickyPhotos;
 
-      for(let i = array.length - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+        for(let i = array.length - 1; i > 0; i--) {
+          let j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+
+        let newState = {
+          clickyPhotos: array
+        };
+        this.setState(newState);
       }
-
-      let newState = {
-        clickyPhotos: array
-      };
-
-      this.setState(newState);
     };
 
     // Returns an array of Image components wrapped in divs.
