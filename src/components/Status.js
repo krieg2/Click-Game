@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import '../styles.css';
+import React, { Component } from "react";
+import "../styles.css";
 
 class Status extends Component {
 
@@ -17,8 +17,8 @@ class Status extends Component {
 
   componentDidMount () {
  
-    const elm = this.refs.statusDiv;
-    elm.addEventListener("animationend", this.handleAnimation);
+    const element = this.refs.statusDiv;
+    element.addEventListener("animationend", this.handleAnimation);
   }
 
   componentWillReceiveProps(nextProps){
@@ -37,7 +37,7 @@ class Status extends Component {
 
   render() {
 
-    return ( <div ref='statusDiv' className={`nav-item text-center my-auto col col-4 ${this.state.status}`} >{this.state.message}</div> );
+    return ( <div ref="statusDiv" className={`nav-item text-center my-auto col col-4 ${this.state.status}`} >{this.state.message}</div> );
   }
 }
 

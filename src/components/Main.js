@@ -17,8 +17,22 @@ class Main extends Component {
                      "https://media.giphy.com/media/l396O8kn1qbPcb4ha/200w",
                      "https://media.giphy.com/media/l0O9zareSGZoeC7gk/200w",
                      "https://media.giphy.com/media/xUOxeZc41DVT2l9laU/200w"],
-      alreadyClicked: []
+      alreadyClicked: [],
+      status: ""
     };
+
+    handleAnimation = (event) => {
+
+      this.setState({
+        status: ""
+      });
+    };
+
+    componentDidMount () {
+ 
+      const element = this.refs.mainDiv;
+      element.addEventListener("animationend", this.handleAnimation);
+    }
 
     handleImgClick = (event) => {
 
@@ -29,13 +43,12 @@ class Main extends Component {
       if(this.state.alreadyClicked.includes(key)){
 
         this.props.handleReset();
-        this.setState({alreadyClicked: []});
+        this.setState({alreadyClicked: [], status: "shake"});
       } else{
 
         this.props.handleScore();
         let newArray = this.state.alreadyClicked;
         newArray.push(key);
-        this.setState({alreadyClicked: newArray});
       }
 
       let array = this.state.clickyPhotos;
@@ -72,7 +85,7 @@ class Main extends Component {
     render() {
 
       return(
-            <main className="container">
+            <main ref="mainDiv" className={`main container ${this.state.status}`}>
               <div className="row">
                 {this.renderImgDivs()}
               </div>

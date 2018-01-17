@@ -1,6 +1,6 @@
 import React from "react";
 import Status from "./Status";
-import '../styles.css';
+import "../styles.css";
 
 const Navbar = (props) => {
 
