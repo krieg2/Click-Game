@@ -39,23 +39,32 @@ class Main extends Component {
       element.addEventListener("animationend", this.handleAnimation);
     }
 
+    // When an image/video is clicked update the state.
     handleImgClick = (event) => {
 
       event.preventDefault();
 
+      // Reference to the Image component via name property.
       const key = event.target.attributes.getNamedItem("name").value;
 
+      // If already clicked, then game must be reset.
       if(this.state.alreadyClicked.includes(key)){
 
+        // Reset handled by App component.
+        // Then add the shake class to the Main component.
         this.props.handleReset();
         this.setState({alreadyClicked: [], status: "shake"});
       } else{
 
+        // Score udate handled by App component.
+        // Then add URL to the alreadyClicked array.
         this.props.handleScore();
         let newArray = this.state.alreadyClicked;
         newArray.push(key);
+        this.setState({alreadyClicked: newArray});
       }
 
+      // Shuffle the array of URLs then update the state.
       let array = this.state.clickyPhotos;
 
       for(let i = array.length - 1; i > 0; i--) {
@@ -70,6 +79,8 @@ class Main extends Component {
       this.setState(newState);
     };
 
+    // Returns an array of Image components wrapped in divs.
+    // Pass the handleImgClick function in props.
     renderImgDivs = () => {
 
       let results = [];

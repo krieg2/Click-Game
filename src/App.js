@@ -15,16 +15,18 @@ class App extends Component {
       status: ""
   };
 
-  // Correct one clicked.
+  // Correct one clicked. Increment current score.
   handleScore = () => {
   
+    let score = this.state.score + 1;
     this.setState({
-      score: ++this.state.score,
+      score: score,
       status: "correct"
     });
   };
 
   // Incorrect one clicked (more than once).
+  // Preserve the top score but reset current score.
   handleReset = () => {
 
     let newState = {
