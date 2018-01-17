@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import Image from "./Image";
-import '../styles.css';
+import Image from "../Image";
+import "./Main.css";
 
 class Main extends Component {
 
+    // Clicky Photo URLS come from the Giphy API (200px width size).
+    // Store the clicked URLs in an array for game logic to use.
+    // There are 2 possible values for status: blank and shake.
     state = {
       clickyPhotos: ["https://media.giphy.com/media/l2QEgAHt1gPBLIfp6/200w",
                      "https://media.giphy.com/media/3oFzmmRkQiiE7rDrsQ/200w",
@@ -21,6 +24,7 @@ class Main extends Component {
       status: ""
     };
 
+    // Removes the shake class after the animation is complete.
     handleAnimation = (event) => {
 
       this.setState({
@@ -28,6 +32,7 @@ class Main extends Component {
       });
     };
 
+    // Adds the animationend event listener, the handleAnimation function.
     componentDidMount () {
  
       const element = this.refs.mainDiv;

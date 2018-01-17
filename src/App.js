@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import Navbar from "./components/Navbar";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
-import './App.css';
+import "./App.css";
 
 class App extends Component {
 
+  // There are 3 possible status values.
+  // Blank, correct, and incorrect.
   state = {
       score: 0,
       topScore: 0,
@@ -35,6 +37,8 @@ class App extends Component {
     this.setState(newState);
   };
 
+  // The page is divided into 4 sections:
+  // Navbar, Header, Main, and Footer.
   render() {
 
     return(

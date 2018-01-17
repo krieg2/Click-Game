@@ -1,0 +1,38 @@
+.correct {
+  animation: correct 1.1s;
+}
+.incorrect {
+  animation: incorrect 1.1s;
+}
+
+@-webkit-keyframes correct {
+  0%{color: #000} /* black */
+  25%{color: #fff} /* white */
+  50%{color: #00cc00} /* green */
+  75%{color: #00cc00}
+  100%{color: #000}
+}
+
+@-webkit-keyframes incorrect {
+  0%{color: #000} /* black */
+  25%{color: #fff} /* white */
+  50%{color: #ff3333} /* red */
+  75%{color: #ff0000}
+  100%{color: #000}
+}
+
+@keyframes correct {
+  0%{color: #000} /* black */
+  25%{color: #fff} /* white */
+  50%{color: #00cc00} /* green */
+  75%{color: #00cc00}
+  100%{color: #000}
+}
+
+@keyframes incorrect {
+  0%{color: #000} /* black */
+  25%{color: #fff} /* white */
+  50%{color: #ff3333} /* red */
+  75%{color: #ff0000}
+  100%{color: #000}
+}

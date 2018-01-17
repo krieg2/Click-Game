@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import "../styles.css";
+import "./Image.css";
 
 class Image extends Component {
 
@@ -10,6 +10,8 @@ class Image extends Component {
     this.state = {};
   }
 
+  // This must be done to keep the videos playing
+  // after shuffling them around.
   componentDidUpdate(nextProps) {
 
      const node = ReactDOM.findDOMNode(this);
@@ -17,6 +19,9 @@ class Image extends Component {
      node.play();
    }
 
+  // Renders a video tag with a Bootstrap class and
+  // onClick handler provided from Main.
+  // Class img-thumbnail is also customized.
   render(){
   
     return(   

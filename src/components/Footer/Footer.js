@@ -1,7 +1,8 @@
 import React from "react";
-import "../styles.css";
-import logo from "../logo.svg";
+import "./Footer.css";
+import logo from "../../logo.svg";
 
+// Footer with React.js logo.
 const Footer = () =>
   <footer className="footer">
   Clicky Game!

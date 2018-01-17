@@ -1,0 +1,11 @@
+footer {
+  color: #fff;
+  padding: 5px;
+  line-height: 18px;
+  background-image: url("../../footer_lodyas.png");
+}
+
+.logoDiv {
+  display: inline-block;
+  width: 40px;
+}
