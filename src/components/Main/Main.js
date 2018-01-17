@@ -5,6 +5,7 @@ import "./Main.css";
 
 class Main extends Component {
 
+    pageSize = 12;
     // Clicky Photo URLS come from the Giphy API (200px width size).
     // Store the clicked URLs in an array for game logic to use.
     // There are 2 possible values for status: blank and shake.
@@ -22,7 +23,8 @@ class Main extends Component {
                      "https://media.giphy.com/media/l0O9zareSGZoeC7gk/200w",
                      "https://media.giphy.com/media/xUOxeZc41DVT2l9laU/200w"],
       alreadyClicked: [],
-      status: ""
+      status: "",
+      offset: 0
     };
 
     // Removes the shake class after the animation is complete.
@@ -59,11 +61,18 @@ class Main extends Component {
         // You won. Game over.
         this.props.handleReset(true);
         // Query the Giphy API.
-        API.getTrending()
+        API.getTrending(this.pageSize, this.state.offset)
         .then(res => {
           let newData = this.processURLs(res.data.data);
           this.setState({ clickyPhotos: newData,
                           alreadyClicked: [] });
+          if( this.state.offset + this.pageSize + 1 < res.data.pagination.total_count){
+              this.setState( (prevState) => {
+              return {
+                offset: prevState.offset + this.pageSize + 1
+              };
+            });
+          }
         })
         .catch(err => console.log(err));
       }
