@@ -6,11 +6,11 @@ import "./Main.css";
 class Main extends Component {
 
     pageSize = 12;
-    // Clicky Photo URLS come from the Giphy API (200px width size).
+    // Clicky Photo URLs come from the Giphy API (200px width size).
     // Store the clicked URLs in an array for game logic to use.
     // There are 2 possible values for status: blank and shake.
     state = {
-      clickyPhotos: ["https://media.giphy.com/media/l2QEgAHt1gPBLIfp6/200w",
+      clickyImages: ["https://media.giphy.com/media/l2QEgAHt1gPBLIfp6/200w",
                      "https://media.giphy.com/media/3oFzmmRkQiiE7rDrsQ/200w",
                      "https://media.giphy.com/media/wJNGA01o1Zxp6/200w",
                      "https://media.giphy.com/media/3o7aCXPFJevWPrWSru/200w",
@@ -49,14 +49,14 @@ class Main extends Component {
     // Shuffle array of URLs.
     shuffle = () => {
 
-      let array = this.state.clickyPhotos;
+      let array = this.state.clickyImages;
 
       for(let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
       }
 
-      this.setState({clickyPhotos: array});
+      this.setState({clickyImages: array});
     }
 
     // Adds the animationend event listener, the handleAnimation function.
@@ -73,23 +73,32 @@ class Main extends Component {
          nextProps.status === "correct"){
         // You won. Game over.
         this.props.handleReset(true);
-        // Query the Giphy API.
+        // Query the Giphy API for the next set of trending gifs.
+        // The first query will use offset = 0.
         API.getTrending(this.pageSize, this.state.offset)
         .then(res => {
+          // Process the results.
           let newData = this.processURLs(res.data.data);
-          this.setState({ clickyPhotos: newData,
+          this.setState({ clickyImages: newData,
                           alreadyClicked: [] });
-          if( this.state.offset + this.pageSize + 1 < res.data.pagination.total_count){
-              this.setState( (prevState) => {
-              return {
-                offset: prevState.offset + this.pageSize + 1
-              };
-            });
+          // Increment the offset for the next game.
+          let nextOffset = 0;
+          if( this.state.offset + this.pageSize + 1 < res.data.pagination.total_count ){
+
+              nextOffset = prevState.offset + this.pageSize + 1;
+          } else {
+
+              nextOffset = 0;
           }
+          this.setState( (prevState) => {
+              return {
+                offset: nextOffset
+              };
+          });
         })
         .catch(err => console.log(err));
       } else {
-        // Shuffle the array of URLs then update the state.
+        // Shuffle the array of URLs.
         this.shuffle();
       }
     }
@@ -130,9 +139,9 @@ class Main extends Component {
 
       let results = [];
 
-      for(let i=0; i < this.state.clickyPhotos.length; i++){
+      for(let i=0; i < this.state.clickyImages.length; i++){
 
-        let url = this.state.clickyPhotos[i];
+        let url = this.state.clickyImages[i];
         results.push(
           <div className="col col-6 col-lg-3" key={url}>
           <Image handleImgClick={this.handleImgClick} url={url} />
