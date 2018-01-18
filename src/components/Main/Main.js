@@ -46,6 +46,19 @@ class Main extends Component {
       return newArray;
     }
 
+    // Shuffle array of URLs.
+    shuffle = () => {
+
+      let array = this.state.clickyPhotos;
+
+      for(let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+
+      this.setState({clickyPhotos: array});
+    }
+
     // Adds the animationend event listener, the handleAnimation function.
     componentDidMount() {
  
@@ -75,6 +88,9 @@ class Main extends Component {
           }
         })
         .catch(err => console.log(err));
+      } else {
+        // Shuffle the array of URLs then update the state.
+        this.shuffle();
       }
     }
 
@@ -106,20 +122,6 @@ class Main extends Component {
         this.setState({alreadyClicked: newArray});
       }
 
-      if(this.props.score < 11 || clickedAlready){
-        // Shuffle the array of URLs then update the state.
-        let array = this.state.clickyPhotos;
-
-        for(let i = array.length - 1; i > 0; i--) {
-          let j = Math.floor(Math.random() * (i + 1));
-          [array[i], array[j]] = [array[j], array[i]];
-        }
-
-        let newState = {
-          clickyPhotos: array
-        };
-        this.setState(newState);
-      }
     };
 
     // Returns an array of Image components wrapped in divs.
