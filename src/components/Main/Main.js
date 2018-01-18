@@ -82,19 +82,22 @@ class Main extends Component {
           this.setState({ clickyImages: newData,
                           alreadyClicked: [] });
           // Increment the offset for the next game.
-          let nextOffset = 0;
           if( this.state.offset + this.pageSize + 1 < res.data.pagination.total_count ){
 
-              nextOffset = prevState.offset + this.pageSize + 1;
+              this.setState( (prevState) => {
+                return {
+                  offset: prevState.offset + this.pageSize + 1
+                };
+              });
           } else {
 
-              nextOffset = 0;
+              this.setState( (prevState) => {
+                return {
+                  offset: 0
+                };
+              });
           }
-          this.setState( (prevState) => {
-              return {
-                offset: nextOffset
-              };
-          });
+          
         })
         .catch(err => console.log(err));
       } else {
