@@ -138,29 +138,18 @@ class Main extends Component {
 
     // Returns an array of Image components wrapped in divs.
     // Pass the handleImgClick function in props.
-    renderImgDivs = () => {
-
-      let results = [];
-
-      for(let i=0; i < this.state.clickyImages.length; i++){
-
-        let url = this.state.clickyImages[i];
-        results.push(
-          <div className="col col-6 col-lg-3" key={url}>
-          <Image handleImgClick={this.handleImgClick} url={url} />
-          </div>
-        );
-      }
-
-      return results;
-    };
-
     render() {
 
       return(
             <main ref="mainDiv" className={`main container ${this.state.status}`}>
               <div className="row">
-                {this.renderImgDivs()}
+                {this.state.clickyImages.map( (url) => {
+                  return(
+                    <div className="col col-6 col-lg-3" key={url}>
+                      <Image handleImgClick={this.handleImgClick} url={url} />
+                    </div>);
+                  }
+                )}
               </div>
             </main>);
     }

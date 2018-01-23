@@ -7,23 +7,30 @@ class Image extends Component {
   constructor(props) {
 
     super(props);
-    this.state = {};
+    this.state = {
+      url: props.url
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("set false");
+    const node = ReactDOM.findDOMNode(this);
+    node.pause();
+    this.setState({url: nextProps.url},
+      this.handlePlay);
   }
 
   // This must be done to keep the videos playing
   // after shuffling them around.
-  componentDidUpdate(nextProps) {
+  handlePlay = () => {
 
-     const node = ReactDOM.findDOMNode(this);
-     if(node.readyState > 1){
-       try{
-         node.load();
-         node.play();
-       } catch(error) {
-         console.log(error);
-       }
-     }
-   }
+    const node = ReactDOM.findDOMNode(this);
+    try{
+      node.play();
+    } catch(error) {
+      console.log(error);
+    }
+  };
 
   // Renders a video tag with a Bootstrap class and
   // onClick handler provided from Main.
@@ -31,10 +38,11 @@ class Image extends Component {
   render(){
   
     return(   
-        <video className="img-thumbnail" onClick={this.props.handleImgClick}
-               autoPlay="true" loop="true" playsInline="true" name={this.props.url}>
-          <source src={this.props.url+'.mp4'} type="video/mp4" />
-          <img alt="" className="" src={this.props.url+'.webp'} />
+        <video className="img-thumbnail"
+               onClick={this.props.handleImgClick}
+               autoPlay="true" loop="true" playsInline="true" name={this.state.url}>
+          <source src={this.state.url+'.mp4'} type="video/mp4" />
+          <img alt="" className="" src={this.state.url+'.webp'} />
         </video>);
   }
 }
