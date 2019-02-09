@@ -36,11 +36,12 @@ class Image extends Component {
   // onClick handler provided from Main.
   // Class img-thumbnail is also customized.
   render(){
-  
-    return(   
+
+    return(
         <video className="img-thumbnail"
                onClick={this.props.handleImgClick}
-               autoPlay="true" loop="true" playsInline="true" name={this.state.url}>
+               name={this.state.url}
+               autoPlay loop playsInline >
           <source src={this.state.url+'.mp4'} type="video/mp4" />
           <img alt="" className="" src={this.state.url+'.webp'} />
         </video>);
