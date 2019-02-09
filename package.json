@@ -4,12 +4,13 @@
   "private": true,
   "homepage": "https://krieg2.github.io/Clicky-Game",
   "dependencies": {
-    "axios": "^0.17.1",
-    "hoek": "^5.0.4",
+    "axios": "^0.18.0",
+    "hoek": "^6.1.2",
     "npm": "^6.7.0",
+    "npm-check-updates": "^2.15.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
-    "react-scripts": "1.0.17"
+    "react-scripts": "2.1.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -20,6 +21,6 @@
     "deploy": "gh-pages -d build"
   },
   "devDependencies": {
-    "gh-pages": "^1.2.0"
+    "gh-pages": "^2.0.1"
   }
 }
